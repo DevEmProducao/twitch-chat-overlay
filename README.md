@@ -23,5 +23,4 @@ solução
 
 
 ## Como utilizar
----
 [Baixe](https://github.com/tmijs/tmi.js/releases) o arquivo da Lib do [tmi.js](https://github.com/tmijs/tmi.js/releases) e coloque na raiz do projeto.
