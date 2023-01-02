@@ -1,10 +1,7 @@
 :root {
   --purple-500: #9f92b9;
-  --gradient-first-person: linear-gradient(
-    180deg,
-    #e863cb 0%,
-    rgba(71, 68, 211, 0.7) 100%
-  );
+  --gradient-first-person: linear-gradient(180deg, #e863cb 0%, rgba(71, 68, 211, 0.7) 100%);
+  --gradient-sub: linear-gradient(180deg, #7237E8 0%, #FBA3A3 100%);
   --gray-700: #393a35;
   --wine-700: #2f0923;
   --green-300: #89c94b;
@@ -81,6 +78,12 @@ body {
   background: var(--gradient-first-person);
 }
 
+.message-container.-sub {
+  background: var(--gradient-sub);
+  border-bottom: 2px solid #fff;
+  box-shadow: 2px 0 6px rgba(0,0,0,.3);
+}
+
 .message-container .avatar-image {
   position: absolute;
   transform: translate(-25%, -20%);
@@ -91,7 +94,10 @@ body {
   border-radius: 50%;
   transform-origin: center;
   animation: avatarAnimation 700ms linear;
+}
 
+.message-container.-sub .avatar-image {
+  border: 2px solid #fff;
 }
 
 @keyframes avatarAnimation {

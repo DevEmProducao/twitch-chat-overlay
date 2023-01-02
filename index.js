@@ -1,6 +1,6 @@
 const containerElement = document.querySelector('.container');
 const TOKEN_OAUTH = 'cn9q591ur161oa8dygkwxo502vx80q'
-const CLIENT_ID = ''
+const CLIENT_ID = 'aos7x393ave7et1p7pu8zth5w7agyu'
 let badgeList = []
 let userList = new Map();
 let messageCount = 0;
@@ -58,6 +58,12 @@ async function getUser(userId) {
   return userList.get(userId);
 }
 
+function setUserSub(userId, isSub) {
+  const userSettings = userList.get(userId)
+  userSettings.subscriber = isSub;
+  userList.set(userId, userSettings)
+}
+
 async function getBadgeList() {
   if (badgeList.length === 0) {
     const {data} = await getBadges();
@@ -70,7 +76,7 @@ function getBadgeByName(badgeName) {
   return badgeInfo;
 }
 
-function createMessageHTML(username, userProfileImg, userColor, message, isMod=false, badges, firstMessage) {
+function createMessageHTML(username, userProfileImg, userColor, message, isMod=false, badges, firstMessage, isSub) {
   const messages = document.querySelectorAll('.message-container');
   
   if (messages.length >= 7) {
@@ -84,7 +90,7 @@ function createMessageHTML(username, userProfileImg, userColor, message, isMod=f
   const isUnusedColor = unusedColors.find(color => color === userColor);
 
   const messageElement = `
-  <div class="message-container ${firstMessage &&= '-first-message'}">
+  <div class="message-container ${firstMessage && '-first-message'} ${isSub && '-sub'}">
     <div class="avatar-image">
       <div class="image-box">
         <img src="${userProfileImg}" alt="${username}">
@@ -184,13 +190,14 @@ client.on('message', async (channel, tags, message, self) => {
       const userId = tags['user-id'];
       
       const userInfo = await getUser(userId);
+      setUserSub(userId, tags.subscriber)
+      const isSub = userInfo.subscriber;
       const userDisplayName = userInfo['display_name'];
       const userProfileImg = userInfo.profile_image_url;
       const userFirstMessage = tags['first-msg'];
       const userColor = tags.color;
-      console.log('Line 177 tags: ', );
 
-      const messageElement = createMessageHTML(userDisplayName, userProfileImg, userColor, newMessage, isMod, badgesImg, userFirstMessage);
+      const messageElement = createMessageHTML(userDisplayName, userProfileImg, userColor, newMessage, isMod, badgesImg, userFirstMessage, isSub);
       insertMessageOnContainer(messageElement)
       break;
   }
