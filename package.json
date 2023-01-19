@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "tmi.js": "^1.8.5",
     "vue": "^3.2.13"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@types/tmi.js": "^1.8.2",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
